@@ -28,6 +28,8 @@ GameEngine.prototype.start = function() {
 GameEngine.prototype.drawScreen = function() {
 	this.context.fillStyle = "#FFFFFF";
 	this.context.fillRect(0, 0, this.theCanvas.width, this.theCanvas.height);
+	this.context.fillStyle = "#00DD00";
+	this.context.fillRect(0, 395, this.theCanvas.width, this.theCanvas.height - 395);
 	var drawables = this.game.getDrawables();
 	for (var i in drawables) {
 		var d = drawables[i];
@@ -49,6 +51,12 @@ GameEngine.prototype.addListeners = function(){
 	window.addEventListener('touchmove', this.touchMoveListener.bind(this), false);
 	window.addEventListener('mouseup', this.mouseUpListener.bind(this), false);
 	window.addEventListener('touchend', this.touchUpListener.bind(this), false);
+	window.addEventListener("keydown", function (event) {
+	  this.game.keyDownListener(event.key)	}, true);
+	window.addEventListener("keypress", function (event) {
+	  this.game.keyPressListener(event.key)	}, true);
+	window.addEventListener("keyup", function (event) {
+	  this.game.keyUpListener(event.key)	}, true);
 }
 
 
