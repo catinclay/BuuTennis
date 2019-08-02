@@ -7,10 +7,11 @@ Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundMan
 	this.imageManager = imageManager;
 	this.soundManager = soundManager;
 	var groundY = 420;
-	this.player = new Player(200, 0, groundY);
-	this.ball = new Ball(300, 0, groundY, canvasWidth);
-	this.net = new Net(400, this.ball, groundY, canvasWidth);
-	this.robot = new Robot(600, groundY, this.ball, groundY, canvasWidth);
+
+	this.net = new Net(400, groundY, canvasWidth);
+	this.player = new Player(200, 0, groundY, this.net);
+	this.ball = new Ball(300, 0, groundY, canvasWidth, this.net);
+	this.robot = new Robot(600, groundY, this.ball, groundY, canvasWidth, this.net);
 	this.hitLine = new HitLine(0, 0);
 	this.drawables.push(this.hitLine);
 	this.drawables.push(this.player);

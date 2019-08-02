@@ -1,6 +1,6 @@
 // Simple class example
 
-function Net(posX, ball, groundY, groundW) {
+function Net(posX, groundY, groundW) {
 		this.x = posX;
 		this.groundY = groundY;
 		this.groundW = groundW;
@@ -10,10 +10,10 @@ function Net(posX, ball, groundY, groundW) {
 		this.accelY = 0.5;
 		this.color = "#0000FF";
 		this.width = 3;
-		this.height = 50;
-		this.y = groundY - this.height;
+		this.height = 100;
+		this.y = groundY - this.height / 2;
+		this.top = groundY - this.height;
 		this.speed = 0;
-		this.ball = ball
 }
 
 Net.prototype.checkHit = function(player) {
@@ -26,7 +26,7 @@ Net.prototype.checkHit = function(player) {
 //A function for drawing the particle.
 Net.prototype.drawToContext = function(theContext) {
 	theContext.fillStyle = this.color;
-	theContext.fillRect(this.x - this.width, this.y - this.height, 2*this.width, 2*this.height);
+	theContext.fillRect(this.x - this.width/2, this.y - this.height/2, this.width, this.height);
 }
 
 Net.prototype.XYtoR = function(dx, dy) {

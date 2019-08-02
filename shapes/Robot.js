@@ -1,6 +1,6 @@
 // Simple class example
 
-function Robot(posX, posY, ball, groundY, groundW) {
+function Robot(posX, posY, ball, groundY, groundW, net) {
 		this.x = posX;
 		this.y = posY;
 		this.groundY = groundY;
@@ -13,7 +13,8 @@ function Robot(posX, posY, ball, groundY, groundW) {
 		this.width = 200;
 		this.height = 3;
 		this.speed = 0;
-		this.ball = ball
+		this.ball = ball;
+		this.net = net;
 }
 
 Robot.prototype.move = function() {
@@ -22,8 +23,14 @@ Robot.prototype.move = function() {
 Robot.prototype.checkHit = function(player) {
 	if (this.ball.y < this.groundY) return;
 	if (this.ball.x < this.x - this.width || this.ball.x > this.x + this.width) return;
-	this.ball.velY = -10 - Math.random() * 180;
-	this.ball.velX = - Math.random() * 100;
+	if (this.ball.x - this.net.x < 10) {
+		// Too close to net, hit back.
+		this.ball.velY = -10 - Math.random() * 180;
+		this.ball.velX = Math.random() * 20;
+	} else {
+		this.ball.velY = -10 - Math.random() * 180;
+		this.ball.velX = - Math.random() * 100;
+	}
 }
 
 //A function for drawing the particle.

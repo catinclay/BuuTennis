@@ -1,6 +1,7 @@
 // Simple class example
 
-function Player(posX, posY, groundY) {
+function Player(posX, posY, groundY, net) {
+		this.net = net;
 		this.x = posX;
 		this.y = posY;
 		this.velX = 0;
@@ -8,11 +9,11 @@ function Player(posX, posY, groundY) {
 		this.accelX = 0;
 		this.accelY = 0.5;
 		this.color = "#FF0000";
-		this.height = 20;
-		this.width = 10;
+		this.height = 40;
+		this.width = 20;
 		this.speed = 6;
 		// The posY for the bottom of the player
-		this.footHeight = groundY - this.height;
+		this.footHeight = groundY - this.height/2;
 		this.isMovingLeft = 0;
 		this.isMovingRight = 0;
 
@@ -66,7 +67,9 @@ Player.prototype.stopMovingLeft = function() {
 
 
 Player.prototype.move = function() {
-	this.x += this.speed * (this.isMovingRight - this.isMovingLeft);
+	var nextX = this.x + this.speed * (this.isMovingRight - this.isMovingLeft);
+	var netLeft = this.net.x - this.width;
+	this.x = nextX > netLeft ? netLeft : nextX;
 	if (this.y + this.velY >= this.footHeight) {
 		this.velY = 0;
 		this.y = this.footHeight;
@@ -92,7 +95,7 @@ Player.prototype.drawToContext = function(theContext) {
 	theContext.stroke();
 
 	theContext.fillStyle = this.color;
-	theContext.fillRect(this.x - this.width, this.y - this.height, 2*this.width, 2*this.height);
+	theContext.fillRect(this.x - this.width/2, this.y - this.height/2, this.width, this.height);
 }
 
 Player.prototype.XYtoR = function(dx, dy) {

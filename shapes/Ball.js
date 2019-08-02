@@ -1,6 +1,7 @@
 // Simple class example
 
-function Ball(posX, posY, groundY, groundW) {
+function Ball(posX, posY, groundY, groundW, net) {
+		this.net = net;
 		this.x = posX;
 		this.y = posY;
 		this.groundY = groundY;
@@ -15,6 +16,7 @@ function Ball(posX, posY, groundY, groundW) {
 }
 
 Ball.prototype.move = function() {
+	// Compute resistence.
 	var signX = this.velX >= 0? 1: -1;
 	this.resistanceX = signX*this.velX*this.velX*0.0045;
 	this.velX -= this.resistanceX;
@@ -22,6 +24,25 @@ Ball.prototype.move = function() {
 	this.resistanceY = -1*signY*this.velY*this.velY*0.0045;
 	this.velY += this.accelY + this.resistanceY;
 
+	// TODO: using nextX and nextY for clean code.
+	var nextX = this.x + this.velX;
+	var nextY = this.y + this.velY;
+
+	// TODO: maybe move to Net class
+	// Check net collision. Only check if velX != 0;
+	if (this.velX != 0)
+		if ((this.x - this.net.x) * (nextX - this.net.x) < 0) {
+			// did crossing net on x-axis, now check if touch net on y-axis.
+			var dx = this.net.x - this.x;
+			var dy = this.velY * dx / this.velX;
+			if (this.y + dy >= this.net.top) {
+				// did cross net on y-axis.
+				this.velX = 0;
+				this.x = this.net.x + (this.x < this.net.x ? -this.radius : this.radius);
+			}
+		} 
+
+	// Check if ball is on the ground.
 	if (this.y + this.velY >= this.groundY) {
 		this.x += this.velX;
 		this.velX = 0;
@@ -32,6 +53,7 @@ Ball.prototype.move = function() {
 		this.y += this.velY;
 	}
 
+	// Check court boundary.
 	if (this.x + this.velX <= 5) {
 		this.velX = 0;
 		this.x = 5;
@@ -39,6 +61,7 @@ Ball.prototype.move = function() {
 		this.velX = 0;
 		this.x = this.groundW - 5;
 	}
+
 }
 
 Ball.prototype.checkHit = function(player) {
