@@ -7,7 +7,7 @@ function Player(posX, posY, groundY) {
 		this.velX = 0;
 		this.velY = 0;
 		this.accelX = 0;
-		this.accelY = 0;
+		this.accelY = 0.5;
 		this.color = "#FF0000";
 		this.height = 20;
 		this.width = 10;
@@ -61,6 +61,19 @@ Player.prototype.faceMiddle = function() {
 
 Player.prototype.move = function() {
 	this.x += this.speed * this.direction;
+	if (this.y + this.velY >= this.groundY) {
+		this.velY = 0;
+		this.y = this.groundY;
+	} else {
+		this.velY += this.accelY;
+		this.y += this.velY;
+	}
+}
+
+Player.prototype.jump = function() {
+	if (this.y >= this.groundY - this.height) {
+		this.velY = -10;
+	}
 }
 
 //A function for drawing the particle.

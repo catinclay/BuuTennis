@@ -7,7 +7,7 @@ Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundMan
 	this.imageManager = imageManager;
 	this.soundManager = soundManager;
 	var groundY = 420;
-	this.player = new Player(200, 400, groundY);
+	this.player = new Player(200, 0, groundY);
 	this.ball = new Ball(300, 0, groundY, canvasWidth);
 	this.hitLine = new HitLine(0, 0);
 	this.drawables.push(this.hitLine);
@@ -34,6 +34,10 @@ Game.prototype.keyDownListener = function(key) {
 		case 'd':
 			this.player.faceRight();
 			break;
+		case 'W':
+		case 'w':
+			this.player.jump();
+			break;
 		default:
 			break;
 	}
@@ -48,6 +52,10 @@ Game.prototype.keyPressListener = function(key) {
 		case 'D':
 		case 'd':
 			this.player.faceRight();
+			break;
+		case 'W':
+		case 'w':
+			this.player.jump();
 			break;
 		default:
 			break;
