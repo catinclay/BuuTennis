@@ -51,7 +51,7 @@ Ball.prototype.checkHit = function(player) {
 
 Ball.prototype.hit = function(hit) {
 	this.velX = Math.cos(hit.r) * hit.p * 10;
-	var yOffset = this.velY >= 0? 20:10;
+	var yOffset = this.velY >= 0? 30:10;
 	this.velY = Math.sin(hit.r) * hit.p * yOffset;
 }
 

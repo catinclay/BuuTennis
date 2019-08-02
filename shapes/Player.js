@@ -39,7 +39,7 @@ Player.prototype.finishSwing = function(mosX, mosY) {
 	var dx = mosX - this.startSwingX;
 	var dy = mosY - this.startSwingY;
 	hit.r = this.XYtoR(dx, dy);
-	hit.p = Math.sqrt(dx*dx+dy*dy)/75;
+	hit.p = Math.sqrt(dx*dx+dy*dy)/60;
 	return hit;
 }
 
