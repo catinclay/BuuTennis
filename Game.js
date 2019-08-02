@@ -28,11 +28,11 @@ Game.prototype.keyDownListener = function(key) {
 	switch(key) {
 		case 'A':
 		case 'a':
-			this.player.faceLeft();
+			this.player.movingLeft();
 			break;
 		case 'D':
 		case 'd':
-			this.player.faceRight();
+			this.player.movingRight();
 			break;
 		case 'W':
 		case 'w':
@@ -47,11 +47,11 @@ Game.prototype.keyPressListener = function(key) {
 	switch(key) {
 		case 'A':
 		case 'a':
-			this.player.faceLeft();
+			this.player.movingLeft();
 			break;
 		case 'D':
 		case 'd':
-			this.player.faceRight();
+			this.player.movingRight();
 			break;
 		case 'W':
 		case 'w':
@@ -66,9 +66,11 @@ Game.prototype.keyUpListener = function(key) {
 	switch(key) {
 		case 'A':
 		case 'a':
+			this.player.stopMovingLeft();
+			break;
 		case 'D':
 		case 'd':
-			this.player.faceMiddle();
+			this.player.stopMovingRight();
 			break;
 		default:
 			break;

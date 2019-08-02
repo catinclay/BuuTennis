@@ -3,7 +3,6 @@
 function Player(posX, posY, groundY) {
 		this.x = posX;
 		this.y = posY;
-		this.groundY = groundY;
 		this.velX = 0;
 		this.velY = 0;
 		this.accelX = 0;
@@ -12,8 +11,10 @@ function Player(posX, posY, groundY) {
 		this.height = 20;
 		this.width = 10;
 		this.speed = 6;
-		// 0 = no, -1 = left, 1 = right
-		this.direction = 0;
+		// The posY for the bottom of the player
+		this.footHeight = groundY - this.height;
+		this.isMovingLeft = 0;
+		this.isMovingRight = 0;
 
 		this.swingR = 0;
 
@@ -47,23 +48,28 @@ Player.prototype.updateSwingArea = function(mosX, mosY) {
 	this.swingR = this.XYtoR(mosX - this.x, mosY - this.y);
 }
 
-Player.prototype.faceRight = function() {
-	this.direction = 1;
+Player.prototype.movingRight = function() {
+	this.isMovingRight = 1;
 }
 
-Player.prototype.faceLeft = function() {
-	this.direction = -1;
+Player.prototype.movingLeft = function() {
+	this.isMovingLeft = 1;
 }
 
-Player.prototype.faceMiddle = function() {
-	this.direction = 0;
+Player.prototype.stopMovingRight = function() {
+	this.isMovingRight = 0;
 }
+
+Player.prototype.stopMovingLeft = function() {
+	this.isMovingLeft = 0;
+}
+
 
 Player.prototype.move = function() {
-	this.x += this.speed * this.direction;
-	if (this.y + this.velY >= this.groundY) {
+	this.x += this.speed * (this.isMovingRight - this.isMovingLeft);
+	if (this.y + this.velY >= this.footHeight) {
 		this.velY = 0;
-		this.y = this.groundY;
+		this.y = this.footHeight;
 	} else {
 		this.velY += this.accelY;
 		this.y += this.velY;
@@ -71,7 +77,7 @@ Player.prototype.move = function() {
 }
 
 Player.prototype.jump = function() {
-	if (this.y >= this.groundY - this.height) {
+	if (this.y >= this.footHeight) {
 		this.velY = -10;
 	}
 }
