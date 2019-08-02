@@ -17,9 +17,6 @@ HitLine.prototype.startSwing = function(posX, posY) {
 HitLine.prototype.updateStartPos = function(posX, posY) {
 	this.startX = posX;
 	this.startY = posY;
-	console.log("update start pos");
-	console.log(this.startX);
-	console.log(this.startY);
 }
 
 HitLine.prototype.finishSwing = function(posX, posY) {

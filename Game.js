@@ -9,12 +9,14 @@ Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundMan
 	var groundY = 420;
 	this.player = new Player(200, 0, groundY);
 	this.ball = new Ball(300, 0, groundY, canvasWidth);
+	this.net = new Net(400, this.ball, groundY, canvasWidth);
 	this.robot = new Robot(600, groundY, this.ball, groundY, canvasWidth);
 	this.hitLine = new HitLine(0, 0);
 	this.drawables.push(this.hitLine);
 	this.drawables.push(this.player);
 	this.drawables.push(this.robot);
 	this.drawables.push(this.ball);
+	this.drawables.push(this.net);
 }
 
 Game.prototype.update = function() {

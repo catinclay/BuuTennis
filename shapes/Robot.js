@@ -22,7 +22,7 @@ Robot.prototype.move = function() {
 Robot.prototype.checkHit = function(player) {
 	if (this.ball.y < this.groundY) return;
 	if (this.ball.x < this.x - this.width || this.ball.x > this.x + this.width) return;
-	this.ball.velY = -5 - Math.random() * 200;
+	this.ball.velY = -10 - Math.random() * 180;
 	this.ball.velX = - Math.random() * 100;
 }
 

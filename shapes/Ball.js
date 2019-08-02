@@ -16,10 +16,10 @@ function Ball(posX, posY, groundY, groundW) {
 
 Ball.prototype.move = function() {
 	var signX = this.velX >= 0? 1: -1;
-	this.resistanceX = signX*this.velX*this.velX*0.005;
+	this.resistanceX = signX*this.velX*this.velX*0.0045;
 	this.velX -= this.resistanceX;
 	var signY = this.velY >= 0? 1: -1;
-	this.resistanceY = -1*signY*this.velY*this.velY*0.005;
+	this.resistanceY = -1*signY*this.velY*this.velY*0.0045;
 	this.velY += this.accelY + this.resistanceY;
 
 	if (this.y + this.velY >= this.groundY) {
@@ -51,7 +51,8 @@ Ball.prototype.checkHit = function(player) {
 
 Ball.prototype.hit = function(hit) {
 	this.velX = Math.cos(hit.r) * hit.p * 10;
-	var yOffset = this.velY >= 0? 30:10;
+	// Apply some offset to make it feel better.
+	var yOffset = this.velY >= 0? 20:10;
 	this.velY = Math.sin(hit.r) * hit.p * yOffset;
 }
 
