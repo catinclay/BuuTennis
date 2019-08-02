@@ -63,5 +63,5 @@ Ball.prototype.drawToContext = function(theContext) {
 }
 
 Ball.prototype.XYtoR = function(dx, dy) {
-	 return -Math.atan2(dx, dy) + 0.5 * Math.PI;
+	 return Math.atan2(dx, -dy) - 0.5 * Math.PI;
 }
