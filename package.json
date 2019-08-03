@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "lint": "eslint **/*.js",
+    "build": "NODE_ENV=production webpack && cp index.html dist",
+    "deploy": "npm run build && gh-pages -d dist",
+    "dev": "webpack-dev-server",
+    "lint": "eslint lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +23,10 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
-    "prettier": "1.18.2"
+    "gh-pages": "^2.1.0",
+    "prettier": "1.18.2",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
   }
 }
